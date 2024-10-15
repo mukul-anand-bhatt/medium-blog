@@ -1,7 +1,7 @@
-import { Hono } from 'hono'
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode, sign, verify } from 'hono/jwt'
+import { Hono } from 'hono';
+import {cors} from 'hono/cors';
+import {userRouter} from './routes/user'
+import {blogRouter} from './routes/blog'
 
 const app = new Hono<{
   Bindings:{
@@ -10,32 +10,10 @@ const app = new Hono<{
   }
 }>()
 
-app.post('/api/v1/user/signup',async (c)=>{
-  const body = await c.req.json();
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL
+app.use("/*",cors())
+app.route("/api/v1/user",userRouter);
+app.route("/api/v1/blog",blogRouter);
 
-  }).$extends(withAccelerate())
-
-
-  try {
-    const createdUser  = await prisma.user.create({
-      data: {
-        email: body.email,
-        password: body.password,
-        name: body.name,
-      }
-    });
-    const jwt = await sign({
-      id: createdUser .id
-    }, c.env.JWT_SECRET)
-    return c.text(jwt)
-  } catch (e) {
-    c.status(411);
-    return c.text('Invalid')
-  }
-    
-  })
 
 
 
