@@ -13,7 +13,7 @@ A full-stack Medium blog clone built using modern web technologies, focusing on 
 
 1. Clone Repo:
    ```bash
-   https://github.com/mukul-anand-bhatt/medium-blog
+   git clone https://github.com/mukul-anand-bhatt/medium-blog
    cd medium-blog
    ```
 2. Install dependencies:
