@@ -7,10 +7,15 @@ import { useBlogs } from "../hooks";
 export const Blogs = () => {
   const { loading, blogs } = useBlogs();
   const [search, setSearch] = useState("");
-  const [type, setThemeType] = useState("light");
+
+  
+  const [type, setThemeType] = useState(() => {
+    return localStorage.getItem("themeType") || "light";
+  });
 
   function setType(newType: string) {
     setThemeType(newType);
+    localStorage.setItem("themeType", newType); 
   }
 
   // Show a loading skeleton if data is still loading
@@ -25,7 +30,7 @@ export const Blogs = () => {
         />
         <div className="flex justify-center">
           <div>
-            <BlogSkeleton />
+            <BlogSkeleton type={type} />
           </div>
         </div>
       </div>
@@ -45,18 +50,16 @@ export const Blogs = () => {
         setType={setType}
       />
       <div
-        className={`flex justify-center h-screen  ${
+        className={`flex justify-center ${
           type === "light" ? "bg-white" : "bg-black"
         }`}
       >
         {filteredBlogs.length > 0 ? (
-          <div
-          >
+          <div>
             {filteredBlogs.map((blog) => (
               <BlogCard
                 key={blog.id}
                 id={blog.id}
-                // authorName={blog.author.name || "Anonymous"}
                 authorName={blog.autherName || "Anonymous"}
                 title={blog.title}
                 content={blog.content}

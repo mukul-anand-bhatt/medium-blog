@@ -32,7 +32,7 @@ export const Appbar = ({
         <SearchBar search={search} setSearch={setSearch} />
       </div>
 
-      <div className="flex flex-row mr-[100px]">
+      <div className="flex flex-row mt-[10px] mr-[100px]">
         <Link to={`/publish`}>
           <button
             type="button"

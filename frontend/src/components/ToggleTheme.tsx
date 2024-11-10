@@ -1,3 +1,5 @@
+import lightImg from "../assets/light.png"
+import darkImg from "../assets/dark.png"
 export default function ToggleTheme({
   type,
   setType,
@@ -15,11 +17,15 @@ export default function ToggleTheme({
       onClick={handleClick}
     >
       <div
-        className={`rounded-full w-[30px] h-[30px] bg-white ml-[5px] ${
+        className={`flex flex-row justify-center items-center rounded-full w-[30px] h-[30px] bg-white ml-[5px] ${
           type === "dark" ? "translate-x-[30px]" : ""
         } transition-transform duration-300`}
-      />
-      <img src=""/>
+      >
+        <img
+          className="select-none h-[18px] w-[18px]"
+          src={type === "light" ? lightImg : darkImg}
+        />
+      </div>
     </div>
   );
 }

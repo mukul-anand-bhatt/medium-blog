@@ -65,7 +65,7 @@ export function Circle() {
 export function Avatar({
   name,
   size = "small",
-  type,
+  
 }: {
   name: string;
   size?: "small" | "big";
@@ -80,7 +80,7 @@ export function Avatar({
       <span
         className={`${
           size === "small" ? "text-xs" : "text-md"
-        } font-extralight text-${type === "light" ? "black" : "white"}`}
+        } font-extralight text-white`}
       >
         {name[0]}
       </span>
